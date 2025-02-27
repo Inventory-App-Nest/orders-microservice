@@ -4,11 +4,15 @@ import * as joi from 'joi';
 interface EnvVars {
     PORT: number;
     DATABASE_URL: string;
+    PRODUCTS_MICROSERVICE_HOST: string;
+    PRODUCTS_MICROSERVICE_PORT: number;
 }
 
 const envsSchema = joi.object({
     PORT: joi.number().required(),
     // DATABASE_URL: joi.string().required(),
+    PRODUCTS_MICROSERVICE_HOST: joi.string().required(),
+    PRODUCTS_MICROSERVICE_PORT: joi.number().required(),
 }).unknown(true);
 
 const { error, value } = envsSchema.validate(process.env);
@@ -22,4 +26,6 @@ const envsVars: EnvVars = value;
 export const envs = {
     port: envsVars.PORT,
     // databaseUrl: envsVars.DATABASE_URL,
+    productsMicroserviceHost: envsVars.PRODUCTS_MICROSERVICE_HOST,
+    productsMicroservicePort: envsVars.PRODUCTS_MICROSERVICE_PORT,
 }
